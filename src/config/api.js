@@ -1,7 +1,9 @@
 import axios from 'axios';
 
-// Base URL backend Laravel
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
+// Base URL backend Laravel - use environment variable for production
+// For local development: use http://localhost:8000/api or http://127.0.0.1:8000/api
+// For production: set REACT_APP_API_URL environment variable (e.g., https://your-backend.railway.app/api)
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:8000/api';
 
 // Create axios instance
 const api = axios.create({

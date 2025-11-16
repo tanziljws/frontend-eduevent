@@ -1,7 +1,9 @@
 import axios from 'axios';
 
-// Base URL untuk Laravel API
-const API_BASE_URL = 'http://localhost:8000/api';
+// Base URL untuk Laravel API - use environment variable for production
+// For local development: use http://localhost:8000/api
+// For production: set REACT_APP_API_URL environment variable (e.g., https://your-backend.railway.app/api)
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
 
 // Buat instance axios dengan konfigurasi default
 const api = axios.create({
