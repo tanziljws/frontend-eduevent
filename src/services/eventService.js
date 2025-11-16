@@ -7,18 +7,26 @@ export const eventService = {
     
     // Handle both old string format and new object format
     if (typeof searchQuery === 'object' && searchQuery !== null) {
-      // New format: getEvents({q, sort, category, page, admin})
+      // New format: getEvents({q, sort, category, page, admin, per_page})
       const params = searchQuery;
       if (params.q) searchParams.append('q', params.q);
       if (params.sort) searchParams.append('sort', params.sort);
       if (params.category && params.category !== 'all') searchParams.append('category', params.category);
       if (params.page) searchParams.append('page', params.page);
       if (params.admin) searchParams.append('admin', 'true');
+      // Ensure per_page is set to get more events (default 50)
+      if (params.per_page) {
+        searchParams.append('per_page', params.per_page);
+      } else {
+        searchParams.append('per_page', '50'); // Default to 50 events per page
+      }
     } else {
       // Old format: getEvents(searchQuery, sort, category)
       if (searchQuery) searchParams.append('q', searchQuery);
       if (sort) searchParams.append('sort', sort);
       if (category && category !== 'all') searchParams.append('category', category);
+      // Add per_page for old format too
+      searchParams.append('per_page', '50'); // Default to 50 events per page
     }
     
     const response = await api.get(`/events?${searchParams.toString()}`);
