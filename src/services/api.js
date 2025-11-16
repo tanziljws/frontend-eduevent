@@ -50,7 +50,7 @@ export const authAPI = {
 
 // Events API functions
 export const eventsAPI = {
-  getAll: () => api.get('/events'),
+  getAll: () => api.get('/events?per_page=50'), // Get up to 50 events for home page
   getById: (id) => api.get(`/events/${id}`),
   register: (eventId) => api.post(`/events/${eventId}/register`),
   submitAttendance: (eventId, data) => api.post(`/events/${eventId}/attendance`, data),
