@@ -55,10 +55,48 @@ Contoh:
 - Public Domain: `https://backend-eduevent-production.up.railway.app`
 - API URL: `https://backend-eduevent-production.up.railway.app/api`
 
+## Troubleshooting
+
+### Error: "Origin is not allowed by Access-Control-Allow-Origin"
+✅ **SOLVED** - Backend sudah dikonfigurasi untuk allow Railway frontend origin.
+
+### Error: 404 Not Found pada `/banners` atau `/events`
+❌ **Masalah:** Frontend masih menggunakan URL tanpa `/api` prefix atau environment variable belum diset.
+
+**Solusi:**
+1. Pastikan `REACT_APP_API_URL` di Railway frontend project menggunakan format: `https://backend-url.railway.app/api` (harus ada `/api` di akhir)
+2. Contoh yang **BENAR:**
+   ```
+   REACT_APP_API_URL=https://backend-eduevent-production.up.railway.app/api
+   ```
+3. Contoh yang **SALAH:**
+   ```
+   REACT_APP_API_URL=https://backend-eduevent-production.up.railway.app
+   ```
+   (Tidak ada `/api` - akan menyebabkan 404 error)
+
+4. Setelah update environment variable, trigger **Redeploy** di Railway
+5. Tunggu deploy selesai (biasanya 2-5 menit)
+
+### Error: "Network Error" atau "No response received"
+- Pastikan backend Railway sudah running (cek health endpoint: `https://backend-url.railway.app/up`)
+- Pastikan frontend URL di backend CORS config sudah benar (sudah dikonfigurasi di `config/cors.php`)
+
 ## Verification
 
 Setelah deploy, cek browser console untuk memastikan:
 - ✅ Tidak ada error "Not allowed to request resource"
 - ✅ Tidak ada error "XMLHttpRequest cannot load http://localhost:8000"
-- ✅ API calls menggunakan URL Railway backend yang benar
+- ✅ Tidak ada 404 error pada `/api/banners` atau `/api/events`
+- ✅ API calls menggunakan URL Railway backend yang benar (dengan `/api` prefix)
+- ✅ Request URL format: `https://backend-url.railway.app/api/events` ✅
+- ❌ **BUKAN:** `https://backend-url.railway.app/events` ❌
+
+## Quick Checklist
+
+- [ ] `REACT_APP_API_URL` sudah diset di Railway frontend project
+- [ ] URL format: `https://backend-url.railway.app/api` (dengan `/api`)
+- [ ] Frontend sudah di-redeploy setelah set environment variable
+- [ ] Backend sudah di-deploy dengan CORS config terbaru
+- [ ] Cek browser console untuk verifikasi (tidak ada error)
 
