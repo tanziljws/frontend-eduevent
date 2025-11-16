@@ -89,18 +89,6 @@ function Events() {
       console.log('ðŸ“‹ Events fetched:', response.data);
       console.log('ðŸ“„ Pagination:', { current: response.current_page, total: response.last_page });
       
-      // Debug: Check flyer URLs (after extracting eventsData)
-      // This will be moved after eventsData extraction
-        if (event.flyer_url || event.flyer_path) {
-          console.log(`Event "${event.title}":`, {
-            flyer_url: event.flyer_url,
-            flyer_path: event.flyer_path,
-            image_url: event.image_url,
-            image_path: event.image_path
-          });
-        }
-      });
-      
       // Handle response structure: { success: true, data: [...], current_page: 1, ... }
       // eventService.getEvents() returns response.data which is { success, data, current_page, ... }
       const eventsData = Array.isArray(response.data) ? response.data : (response.data?.data || []);
