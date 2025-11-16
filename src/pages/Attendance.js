@@ -210,9 +210,15 @@ function Attendance() {
                     </div>
                     {!attendanceStatus.active && (
                       <div className="mt-2 text-xs">
-                        <p>Hari kegiatan: <span className="font-semibold">{attendanceStatus.event_date}</span></p>
-                        <p>Jam mulai: <span className="font-semibold">{attendanceStatus.start_time}</span></p>
-                        <p>Waktu sekarang: <span className="font-semibold">{new Date(attendanceStatus.current_time).toLocaleString('id-ID')}</span></p>
+                        <p>Hari kegiatan: <span className="font-semibold">{attendanceStatus.event_date || 'N/A'}</span></p>
+                        <p>Jam mulai: <span className="font-semibold">{attendanceStatus.start_time || 'N/A'}</span></p>
+                        <p>Waktu sekarang: <span className="font-semibold">
+                          {attendanceStatus.current_time 
+                            ? (typeof attendanceStatus.current_time === 'string' 
+                              ? new Date(attendanceStatus.current_time).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })
+                              : new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }))
+                            : new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}
+                        </span></p>
                       </div>
                     )}
                   </div>

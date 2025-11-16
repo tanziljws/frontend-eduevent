@@ -40,7 +40,7 @@ export function AuthProvider({ children }) {
       return { 
         success: true, 
         message: response.message,
-        user_id: response.user_id
+        user_id: response.user_id || response.user?.id // Fallback ke user.id jika user_id tidak ada
       };
     } catch (error) {
       return { 

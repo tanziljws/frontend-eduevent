@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
-import { User, LogOut, CreditCard, Lock, Heart } from 'lucide-react';
+import { User, LogOut, CreditCard, Lock, Heart, Calendar } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 const NavItem = ({ to, icon: Icon, label }) => {
@@ -50,8 +50,8 @@ export default function ProfileSidebar() {
 
         <nav className="flex flex-col gap-1 pt-0.5">
           <NavItem to="/profile?section=settings" icon={User} label="Pengaturan Akun" />
+          <NavItem to="/profile?section=transactions" icon={Calendar} label="Daftar Event" />
           <NavItem to="/profile?section=wishlist" icon={Heart} label="My Wishlist" />
-          <NavItem to="/profile?section=transactions" icon={CreditCard} label="Transaksi Event" />
           <NavItem to="/profile?section=password" icon={Lock} label="Atur Kata Sandi" />
         </nav>
 

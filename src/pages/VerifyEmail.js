@@ -15,8 +15,8 @@ function VerifyEmail() {
   const navigate = useNavigate();
   const location = useLocation();
   
-  // Get user_id from navigation state
-  const userId = location.state?.userId;
+  // Get user_id from navigation state or URL params
+  const userId = location.state?.userId || new URLSearchParams(location.search).get('user_id');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ function VerifyEmail() {
     setSuccess('');
 
     if (!userId) {
-      setError('User ID tidak ditemukan. Silakan daftar ulang.');
+      setError('User ID tidak ditemukan. Silakan daftar ulang atau login jika sudah terdaftar.');
       setLoading(false);
       return;
     }

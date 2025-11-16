@@ -63,8 +63,10 @@ export default function Profile() {
 
         {/* Content */}
         <div className="md:col-span-9 space-y-6">
-          {/* Decide section based on query */}
-          {((new URLSearchParams(location.search)).get('section') || 'settings') === 'settings' ? (
+          {/* Decide section based on query - default to transactions (Daftar Event) */}
+          {(() => {
+            const section = (new URLSearchParams(location.search)).get('section') || 'transactions';
+            return section === 'settings' ? (
           <>
           {/* Account Settings Card */}
           <Card className="bg-white/90 border-gray-200 shadow-sm rounded-xl">
@@ -127,7 +129,7 @@ export default function Profile() {
           </Card>
           
           </>
-          ) : ((new URLSearchParams(location.search)).get('section') === 'wishlist') ? (
+          ) : section === 'wishlist' ? (
             <>
               <Card className="bg-white/90 border-gray-200 shadow-sm rounded-xl">
                 <CardHeader>
@@ -138,14 +140,23 @@ export default function Profile() {
                 </CardContent>
               </Card>
             </>
-          ) : ((new URLSearchParams(location.search)).get('section') === 'password') ? (
+          ) : section === 'password' ? (
             <>
               <ChangePassword />
             </>
-          ) : ((new URLSearchParams(location.search)).get('section') === 'transactions') ? (
-            // Transaksi Event section
-            <EmbeddedEventHistory />
-          ) : null}
+          ) : section === 'transactions' ? (
+            // Daftar Event section (default)
+            <Card className="bg-white/90 border-gray-200 shadow-sm rounded-xl">
+              <CardHeader>
+                <CardTitle className="text-gray-800">Daftar Event Saya</CardTitle>
+                <p className="text-sm text-gray-600 mt-1">Semua event yang telah Anda ikuti</p>
+              </CardHeader>
+              <CardContent>
+                <EmbeddedEventHistory />
+              </CardContent>
+            </Card>
+          ) : null;
+          })()}
         </div>
       </div>
     </div>
