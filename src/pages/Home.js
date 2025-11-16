@@ -56,7 +56,9 @@ function Home() {
         }
       }
       
-      setEvents(eventsData.slice(0, 8)); // Ambil 8 event terbaru untuk carousel
+      // Take all published events (no limit) for carousel
+      // Carousel will paginate with eventsPerPage = 4
+      setEvents(eventsData || []);
     } catch (error) {
       console.error('Error fetching events:', error);
       setEvents([]); // Set empty array on error
