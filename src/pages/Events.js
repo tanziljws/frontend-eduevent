@@ -89,8 +89,8 @@ function Events() {
       console.log('ðŸ“‹ Events fetched:', response.data);
       console.log('ðŸ“„ Pagination:', { current: response.current_page, total: response.last_page });
       
-      // Debug: Check flyer URLs
-      response.data?.forEach(event => {
+      // Debug: Check flyer URLs (after extracting eventsData)
+      // This will be moved after eventsData extraction
         if (event.flyer_url || event.flyer_path) {
           console.log(`Event "${event.title}":`, {
             flyer_url: event.flyer_url,
@@ -101,14 +101,28 @@ function Events() {
         }
       });
       
+      // Handle response structure: { success: true, data: [...], current_page: 1, ... }
+      // eventService.getEvents() returns response.data which is { success, data, current_page, ... }
+      const eventsData = Array.isArray(response.data) ? response.data : (response.data?.data || []);
+      const paginationInfo = {
+        current_page: response.current_page || response.data?.current_page || 1,
+        last_page: response.last_page || response.data?.last_page || 1,
+        total: response.total || response.data?.total || eventsData.length,
+        per_page: response.per_page || response.data?.per_page || eventsData.length,
+      };
+      
+      console.log('📋 Events fetched:', eventsData);
+      console.log('📄 Pagination:', paginationInfo);
+      console.log('📊 Total events:', eventsData.length);
+      
       if (reset) {
-        setEvents(response.data || []);
+        setEvents(eventsData || []);
       } else {
-        setEvents(prev => [...prev, ...(response.data || [])]);
+        setEvents(prev => [...prev, ...(eventsData || [])]);
       }
       
-      setCurrentPage(response.current_page || 1);
-      setTotalPages(response.last_page || 1);
+      setCurrentPage(paginationInfo.current_page);
+      setTotalPages(paginationInfo.last_page);
       
       // Fetch wishlist status if user is logged in
       if (user) {
