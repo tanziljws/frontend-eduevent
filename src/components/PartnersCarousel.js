@@ -138,7 +138,7 @@ export default function PartnersCarousel() {
           {['FACEBOOK', 'TWITTER'].map((s) => (
             <a
               key={s}
-              href="#"
+              href="/events"
               className="px-5 py-2 text-xs font-semibold tracking-wide border border-teal-400 text-teal-600 rounded-sm hover:bg-teal-50"
             >
               {s}

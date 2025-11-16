@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
-import { User, LogOut, CreditCard, Lock, Heart, Calendar } from 'lucide-react';
+import { User, LogOut, Lock, Heart, Calendar } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 const NavItem = ({ to, icon: Icon, label }) => {

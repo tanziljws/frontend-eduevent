@@ -1,57 +1,57 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ProfileSidebar from '../components/ProfileSidebar';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import { Button } from '../components/ui/button';
 import { useAuth } from '../contexts/AuthContext';
-import { userService } from '../services/userService';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+// import { userService } from '../services/userService';
+import { useLocation } from 'react-router-dom';
 import EmbeddedEventHistory from '../components/EmbeddedEventHistory';
 import EmbeddedWishlist from '../components/EmbeddedWishlist';
 import ChangePassword from '../components/ChangePassword';
 
 export default function Profile() {
   const { user } = useAuth();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const location = useLocation();
 
-  const [recentEvents, setRecentEvents] = useState([]); // last 5
-  const [loading, setLoading] = useState(true);
+  // const [recentEvents, setRecentEvents] = useState([]); // last 5
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    let mounted = true;
-    async function load() {
-      try {
-        const res = await userService.getEventHistory();
-        if (mounted && res?.success) {
-          const list = Array.isArray(res.data?.events) ? res.data.events.slice(0, 5) : [];
-          setRecentEvents(list);
-        }
-      } finally {
-        if (mounted) setLoading(false);
-      }
-    }
-    load();
-    return () => { mounted = false; };
-  }, []);
+  // useEffect(() => {
+  //   let mounted = true;
+  //   async function load() {
+  //     try {
+  //       const res = await userService.getEventHistory();
+  //       if (mounted && res?.success) {
+  //         const list = Array.isArray(res.data?.events) ? res.data.events.slice(0, 5) : [];
+  //         setRecentEvents(list);
+  //       }
+  //     } finally {
+  //       if (mounted) setLoading(false);
+  //     }
+  //   }
+  //   load();
+  //   return () => { mounted = false; };
+  // }, []);
 
-  const StatusBadge = ({ status }) => {
-    const map = {
-      completed: 'bg-green-100 text-green-700 border-green-200',
-      attended: 'bg-blue-100 text-blue-700 border-blue-200',
-      upcoming: 'bg-yellow-100 text-yellow-700 border-yellow-200',
-      missed: 'bg-red-100 text-red-700 border-red-200',
-      cancelled: 'bg-gray-100 text-gray-700 border-gray-200',
-    };
-    const label = {
-      completed: 'Selesai',
-      attended: 'Hadir',
-      upcoming: 'Akan Datang',
-      missed: 'Terlewat',
-      cancelled: 'Dibatalkan',
-    }[status] || '—';
-    return <span className={`text-xs px-2 py-1 rounded border ${map[status] || 'bg-gray-100 text-gray-700 border-gray-200'}`}>{label}</span>;
-  };
+  // const StatusBadge = ({ status }) => {
+  //   const map = {
+  //     completed: 'bg-green-100 text-green-700 border-green-200',
+  //     attended: 'bg-blue-100 text-blue-700 border-blue-200',
+  //     upcoming: 'bg-yellow-100 text-yellow-700 border-yellow-200',
+  //     missed: 'bg-red-100 text-red-700 border-red-200',
+  //     cancelled: 'bg-gray-100 text-gray-700 border-gray-200',
+  //   };
+  //   const label = {
+  //     completed: 'Selesai',
+  //     attended: 'Hadir',
+  //     upcoming: 'Akan Datang',
+  //     missed: 'Terlewat',
+  //     cancelled: 'Dibatalkan',
+  //   }[status] || '—';
+  //   return <span className={`text-xs px-2 py-1 rounded border ${map[status] || 'bg-gray-100 text-gray-700 border-gray-200'}`}>{label}</span>;
+  // };
 
   return (
     <div className="min-h-screen bg-gray-50">

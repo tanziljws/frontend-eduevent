@@ -885,7 +885,7 @@ function Home() {
                 viewport={{ once: true }}
               >
                 <motion.a 
-                  href="#" 
+                  href="/events" 
                   className="inline-flex items-center gap-3 rounded-xl bg-black text-white px-4 py-3 shadow hover:opacity-90"
                   whileHover={{ scale: 1.05, y: -5 }}
                   whileTap={{ scale: 0.95 }}
@@ -934,7 +934,7 @@ function Home() {
                 viewport={{ once: true }}
               >
                 <motion.a 
-                  href="#" 
+                  href="/events" 
                   className="inline-flex items-center gap-3 rounded-xl bg-black text-white px-4 py-3 shadow hover:opacity-90"
                   whileHover={{ scale: 1.05, y: -5 }}
                   whileTap={{ scale: 0.95 }}

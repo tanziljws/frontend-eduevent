@@ -9,7 +9,7 @@ import EventHistoryCard from './EventHistoryCard';
 // Compact version of EventHistory to be embedded inside Profile page
 export default function EmbeddedEventHistory() {
   const [events, setEvents] = useState([]);
-  const [statistics, setStatistics] = useState({});
+  // const [statistics, setStatistics] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
@@ -22,7 +22,7 @@ export default function EmbeddedEventHistory() {
         const res = await userService.getEventHistory();
         if (res?.success) {
           setEvents(res.data?.events || []);
-          setStatistics(res.data?.statistics || {});
+          // setStatistics(res.data?.statistics || {});
         } else {
           setError(res?.message || 'Gagal mengambil riwayat event');
         }
